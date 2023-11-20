@@ -18,7 +18,7 @@ echo "Preparing working environment"
 for f in `find . -type f`; do cp -v "$f" ""$TMPDIR"/$(echo $f | tr '[A-Z]' '[a-z]')"; done
 
 # Convert JPEG and JPG to PDF in "$TMPDIR"
-cd "$TMPDIR" && find . -type f \( -iname \*.jpg -o -iname \*.jpeg \) -exec bash -c 'convert "$1" "${1%.*}".pdf && rm -f "$1"' - '{}' \;
+cd "$TMPDIR" && find . -type f \( -iname \*.jpg -o -iname \*.jpeg \) -exec bash -c 'convert "$1" -resize 1240x1753 -extent 1240x1753 -gravity center -units PixelsPerInch -density 150x150 "${1%.*}".pdf && rm -f "$1"' - '{}' \;
 
 # Generate single PDF - alphabetic order
 gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=combine.pdf -dBATCH $(ls)
